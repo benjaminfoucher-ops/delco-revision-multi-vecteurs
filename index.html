@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DELCO Révision</title>
+<meta name="theme-color" content="#1F3A5F">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="DELCO Révision">
+<style>
+:root{
+  --navy:#1F3A5F; --navy2:#2C5282; --gold:#C9A227; --red:#B3261E;
+  --bg:#F2F4F8; --card:#FFFFFF; --soft:#EEF2F7; --text:#1B2330; --muted:#6B7280; --line:#D8DEE8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#0F1724; --card:#172235; --soft:#1E2B42; --text:#E8ECF3; --muted:#9AA4B5; --line:#2A3850; }
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-text-size-adjust:100%}
+header{background:var(--navy);color:#fff;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:5;border-bottom:3px solid var(--gold)}
+header img{width:40px;height:40px}
+header h1{font:600 20px/1.1 Bahnschrift,"Arial Narrow","Roboto Condensed",sans-serif;margin:0;letter-spacing:.5px}
+header small{display:block;font-size:11px;opacity:.8;letter-spacing:1px}
+.np{margin-left:auto;font-size:10px;border:1px solid #fff;padding:2px 6px;border-radius:3px;white-space:nowrap}
+main{max-width:720px;margin:0 auto;padding:16px 16px 110px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:0;border-radius:12px;padding:16px;font-size:17px;font-weight:700;cursor:pointer}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.gold{background:var(--gold);color:#1B2330}
+.btn.ghost{background:var(--soft);color:var(--text)}
+.row{display:flex;gap:10px;margin-top:10px}
+.row .btn{font-size:15px;padding:12px}
+#scanner{position:fixed;inset:0;background:#000;z-index:20;display:none;flex-direction:column}
+#scanner video{flex:1;width:100%;object-fit:cover}
+#scanner .frame{position:absolute;left:50%;top:45%;width:min(70vw,320px);aspect-ratio:1;transform:translate(-50%,-50%);border:3px solid var(--gold);border-radius:16px;box-shadow:0 0 0 2000px rgba(0,0,0,.45)}
+#scanner .bar{position:absolute;bottom:0;left:0;right:0;padding:16px 16px calc(16px + env(safe-area-inset-bottom));text-align:center;color:#fff}
+#scanner .bar p{margin:0 0 12px}
+.empty{text-align:center;color:var(--muted);padding:28px 8px}
+.empty b{color:var(--text)}
+h2.sec{font:600 14px/1 system-ui;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin:26px 0 10px}
+h3.vec{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:18px 0 8px;font:600 17px/1.2 Bahnschrift,"Arial Narrow","Roboto Condensed",sans-serif;letter-spacing:.8px;color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:4px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) h3.vec{color:#9DB8E0}}
+h3.vec .cnt{font:600 12px/1 system-ui;color:var(--muted);letter-spacing:.5px;white-space:nowrap}
+.list a{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:8px;color:inherit;text-decoration:none}
+.list .tag{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-size:20px;background:var(--soft)}
+.list .t{font-weight:700}
+.list .s{font-size:13px;color:var(--muted)}
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:16px;padding:18px 18px 16px;margin-bottom:16px;position:relative;overflow:hidden}
+.hero .k{font-size:12px;letter-spacing:2px;opacity:.85}
+.hero h2{font:600 26px/1.1 Bahnschrift,"Arial Narrow","Roboto Condensed",sans-serif;margin:4px 0 10px}
+.pill{display:inline-block;background:var(--gold);color:#1B2330;font-weight:800;font-size:12px;letter-spacing:1px;padding:4px 10px;border-radius:99px}
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:560px){.grid{grid-template-columns:1fr 1fr}}
+.box{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--navy);border-radius:12px;padding:12px 14px}
+.box:nth-child(3n+2){border-left-color:var(--gold)}
+.box h3{margin:0 0 8px;font-size:15px;letter-spacing:.8px;color:var(--navy);display:flex;align-items:center;gap:8px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .box h3{color:#9DB8E0}}
+.box h3 .e{font-size:20px}
+.box ul{margin:0;padding:0;list-style:none}
+.box li{padding:5px 0 5px 16px;position:relative;border-top:1px dashed var(--line);font-size:15px;line-height:1.35}
+.box li:first-child{border-top:0}
+.box.chips ul{display:flex;flex-wrap:wrap;gap:6px}
+.box.chips li{border:0;padding:5px 10px;background:var(--soft);border-radius:99px;font-weight:600}
+.box.chips li:before{display:none}
+.box li:before{content:"";position:absolute;left:2px;top:12px;width:6px;height:6px;border-radius:2px;background:var(--gold)}
+.alert{background:#FDECEA;color:#7A1A14;border:1px solid #F3B8B2;border-left:5px solid var(--red);border-radius:12px;padding:12px 14px;font-weight:700;margin-top:12px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .alert{background:#3A1614;color:#FFC9C3;border-color:#6B2620}}
+.q{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.q .n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--navy);color:#fff;font-weight:800;margin-right:10px;font-size:14px}
+.q .txt{font-weight:600;font-size:16px;line-height:1.35;display:flex;align-items:flex-start}
+.q .txt span:last-child{padding-top:3px}
+.q .opts{list-style:none;margin:8px 0 0 38px;padding:0}
+.q .opts li{padding:3px 0;font-size:15px}
+.q .reveal, .score button{margin-top:10px;background:var(--soft);border:0;border-radius:8px;padding:8px 12px;font-weight:700;color:var(--text);cursor:pointer}
+.q .ans{display:none;margin-top:10px;padding:10px 12px;border-radius:8px;background:#E8F5EC;color:#14532D;font-weight:600}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .q .ans{background:#123222;color:#BBF7D0}}
+.q.open .ans{display:block}
+.q.open .reveal{display:none}
+.score{display:flex;gap:10px;margin-top:8px}
+.score button{flex:1}
+.q.ok{border-color:#3C9A5F}.q.ko{border-color:var(--red)}
+.raw{white-space:pre-wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;font-size:15px;line-height:1.4}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:22px}
+.dock{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 30%);z-index:4}
+.dock .btn{max-width:688px;margin:0 auto}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;border-radius:10px;font-size:14px;display:none;z-index:30;max-width:90vw;text-align:center}
+textarea{width:100%;min-height:140px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--text);padding:10px;font:14px system-ui}
+</style>
+</head>
+<body>
+<header>
+  <img src="icons/insigne.png" alt="">
+  <div><h1>DELCO RÉVISION</h1><small>3e RIMa · CARNET DE COMBAT</small></div>
+  <span class="np">NON PROTÉGÉ</span>
+</header>
+<main id="view"></main>
+<div class="dock"><button class="btn primary" id="scanBtn">📷 Scanner un QR code</button></div>
+<div id="scanner">
+  <video id="video" playsinline muted></video>
+  <div class="frame"></div>
+  <div class="bar"><p>Place le QR code dans le cadre</p><button class="btn ghost" id="stopBtn">Annuler</button></div>
+</div>
+<input type="file" id="photo" accept="image/*" hidden>
+<div class="toast" id="toast"></div>
+<canvas id="cv" hidden></canvas>
+<script src="jsQR.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
